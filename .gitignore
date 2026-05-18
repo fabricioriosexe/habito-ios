@@ -22,3 +22,4 @@ Secrets.xcconfig
 .AppleDouble
 .LSOverride
 Thumbs.db
+Config.xcconfig
