@@ -1,0 +1,24 @@
+# Xcode
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Secrets — NUNCA subir a GitHub
+Secrets.xcconfig
+*.xcconfig
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db

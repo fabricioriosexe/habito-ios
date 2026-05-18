@@ -1,17 +1,14 @@
-//
-//  HabitoApp.swift
-//  Habito
-//
-//  Created by Fabricio Exequiel Rios on 17/05/2026.
-//
-
 import SwiftUI
+import SwiftData
 
 @main
 struct HabitoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HabitListView()
         }
+        // SwiftData necesita saber qué modelos gestionar.
+        // .modelContainer crea la base de datos SQLite automáticamente.
+        .modelContainer(for: Habit.self)
     }
 }
