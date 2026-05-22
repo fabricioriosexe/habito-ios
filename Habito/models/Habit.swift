@@ -1,28 +1,23 @@
 import Foundation
 import SwiftData
 
+// @Model le dice a SwiftData:
+// "esta clase es una tabla en la base de datos"
+// Swift genera todo el SQL por debajo — vos no lo ves nunca
 @Model
 final class Habit {
-    
-    // MARK: - Propiedades
-    var id: UUID
-    var name: String
-    var colorHex: String
-    var createdAt: Date
-    
-    // Guardamos las fechas en que el hábito fue completado.
-    // Usamos [Date] para simplicidad en nuestro MVP.
-    var completedDates: [Date]
-    
-    // MARK: - Inicializador
-    init(
-        name: String,
-        colorHex: String = "#6C63FF"
-    ) {
-        self.id = UUID()
+
+    var id: UUID           // Identificador único — nunca dos iguales
+    var name: String       // "Meditar", "Leer", etc.
+    var colorHex: String   // "#5E5CE6" — el color elegido
+    var createdAt: Date    // Cuándo se creó el hábito
+    var completedDates: [Date]  // Historial de días completados
+
+    init(name: String, colorHex: String = "#5E5CE6") {
+        self.id = UUID()           // Genera un ID único automáticamente
         self.name = name
         self.colorHex = colorHex
-        self.createdAt = Date()
-        self.completedDates = []
+        self.createdAt = Date()    // "ahora mismo"
+        self.completedDates = []   // Empieza vacío
     }
 }

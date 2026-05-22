@@ -1,48 +1,33 @@
 import SwiftUI
 
 struct AddHabitView: View {
-
-    @Environment(\.dismiss) private var dismiss
-
+    @Environment(\.dismiss) private var dismiss  // Para cerrar el sheet
     let viewModel: HabitViewModel
 
-    @State private var habitName: String = ""
-    @State private var selectedColor: String = "#5E5CE6"
+    @State private var habitName = ""
+    @State private var selectedColor = "#5E5CE6"
 
-    private let colorOptions: [String] = [
-        "#5E5CE6", // Índigo Apple
-        "#FF375F", // Rosa
-        "#30D158", // Verde
-        "#FF9F0A", // Ámbar
-        "#0A84FF", // Azul
-        "#BF5AF2"  // Púrpura
-    ]
+    let colorOptions = ["#5E5CE6","#FF375F","#30D158","#FF9F0A","#0A84FF","#BF5AF2"]
 
     var body: some View {
         NavigationStack {
             Form {
                 Section("Nombre del hábito") {
+                    // $habitName = binding bidireccional:
+                    // el TextField lee Y escribe en habitName
                     TextField("Ej: Meditar, Leer, Correr…", text: $habitName)
                 }
-
                 Section("Color") {
-                    LazyVGrid(
-                        columns: Array(repeating: GridItem(.flexible()), count: 6),
-                        spacing: 14
-                    ) {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 14) {
                         ForEach(colorOptions, id: \.self) { hex in
-                            let color = Color(hex: hex) ?? .indigo
-                            let isSelected = selectedColor == hex
-
                             Circle()
-                                .fill(color)
+                                .fill(Color(hex: hex) ?? .indigo)
                                 .frame(width: 36, height: 36)
                                 .overlay(
-                                    Circle()
-                                        .strokeBorder(.white, lineWidth: 2.5)
-                                        .opacity(isSelected ? 1 : 0)
+                                    Circle().strokeBorder(.white, lineWidth: 2.5)
+                                        .opacity(selectedColor == hex ? 1 : 0)
                                 )
-                                .scaleEffect(isSelected ? 1.15 : 1.0)
+                                .scaleEffect(selectedColor == hex ? 1.15 : 1.0)
                                 .onTapGesture { selectedColor = hex }
                                 .animation(.spring(duration: 0.2), value: selectedColor)
                         }

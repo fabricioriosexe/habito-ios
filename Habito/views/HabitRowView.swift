@@ -4,18 +4,17 @@ struct HabitRowView: View {
     let habit: Habit
     let isCompleted: Bool
     let streak: Int
-    let onToggle: () -> Void
+    let onToggle: () -> Void  // Closure = función que la vista padre nos pasa
 
     private var habitColor: Color {
-        Color(hex: habit.colorHex) ?? .indigo
+        Color(hex: habit.colorHex) ?? .indigo  // ?? = "si falla, usá índigo"
     }
 
     var body: some View {
         HStack(spacing: 14) {
 
-            // Botón circular de completado
             Button(action: onToggle) {
-                ZStack {
+                ZStack {  // ZStack apila vistas una encima de otra
                     Circle()
                         .strokeBorder(habitColor, lineWidth: 2)
                         .frame(width: 28, height: 28)
@@ -24,25 +23,22 @@ struct HabitRowView: View {
                         Circle()
                             .fill(habitColor)
                             .frame(width: 28, height: 28)
-
                         Image(systemName: "checkmark")
                             .font(.system(size: 12, weight: .bold))
                             .foregroundStyle(.white)
                     }
                 }
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.plain)  // Evita que el tap active toda la fila del List
+            // value: isCompleted = "animá cuando este valor cambie"
             .animation(.spring(duration: 0.25), value: isCompleted)
 
-            // Nombre del hábito
-            VStack(alignment: .leading, spacing: 2) {
-                Text(habit.name)
-                    .font(.body)
-                    .foregroundStyle(isCompleted ? .secondary : .primary)
-                    .strikethrough(isCompleted, color: .secondary)
-            }
+            Text(habit.name)
+                .font(.body)
+                .foregroundStyle(isCompleted ? .secondary : .primary)
+                .strikethrough(isCompleted, color: .secondary)
 
-            Spacer()
+            Spacer()  // Empuja el badge hacia la derecha
 
             StreakBadge(streak: streak)
         }
